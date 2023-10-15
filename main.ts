@@ -2,9 +2,6 @@ input.onButtonEvent(Button.A, input.buttonEventClick(), function () {
     Wiederholung = false
     Ampelsteuerung()
 })
-input.onButtonEvent(Button.AB, input.buttonEventClick(), function () {
-    Wiederholung = true
-})
 function Ampelsteuerung () {
     basic.pause(500)
     Ampel3(0, 0, 1)
@@ -22,9 +19,12 @@ function Ampelsteuerung () {
     basic.pause(750)
     Ampel3(0, 0, 1)
 }
+input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
+    Wiederholung = true
+})
 function Ampel3 (Rot: number, Gelb: number, Grün: number) {
-    pins.digitalWritePin(DigitalPin.P0, Rot)
-    pins.digitalWritePin(DigitalPin.P1, Gelb)
+    pins.digitalWritePin(DigitalPin.P1, Rot)
+    pins.digitalWritePin(DigitalPin.P0, Gelb)
     pins.digitalWritePin(DigitalPin.P2, Grün)
     if (Rot == 1) {
         basic.setLedColor(0xff0000)
@@ -55,7 +55,7 @@ let Wiederholung = false
 basic.showString("Ampel5")
 Ampel3(1, 1, 1)
 Ampel2(1, 1)
-loops.everyInterval(10000, function () {
+basic.forever(function () {
     if (Wiederholung) {
         Ampelsteuerung()
     }
